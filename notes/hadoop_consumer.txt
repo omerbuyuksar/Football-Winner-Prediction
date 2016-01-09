@@ -1,0 +1,34 @@
+1. Complile using "sbt" to create a package for hadoop consumer code.
+./sbt package
+
+2. Run the hadoop-setup.sh script that enables write permission on the 
+   required HDFS directory
+
+3. Produce test events in server and generate offset files
+  1) Start kafka server [ Follow the quick start - 
+                        http://sna-projects.com/kafka/quickstart.php ]
+
+  2) Update test/test.properties to change the following parameters:  
+   kafka.etl.topic 	: topic name
+   event.count		: number of events to be generated
+   kafka.server.uri     : kafka server uri;
+   input                : hdfs directory of offset files
+
+  3) Produce test events to Kafka server and generate offset files
+   ./run-class.sh kafka.etl.impl.DataGenerator test/test.properties
+
+4. Fetch generated topic into HDFS:
+  1) Update test/test.properties to change the following parameters:
+	hadoop.job.ugi	: id and group 
+	input           : input location 
+	output	        : output location 
+	kafka.request.limit: limit the number of events to be fetched; 
+			     -1 means no limitation.
+        hdfs.default.classpath.dir : hdfs location of jars
+
+  2) copy jars into hdfs
+   ./copy-jars.sh ${hdfs.default.classpath.dir}
+
+  2) Fetch data
+  ./run-class.sh kafka.etl.impl.SimpleKafkaETLJob test/test.properties
+

@@ -1,0 +1,22 @@
+
+ #from ubuntu
+adduser hadoopuser sudo
+
+sudo apt-get install zookeeperd
+
+wget http://mirror.idealhosting.net.tr/Apache/kafka/0.9.0.0/kafka_2.11-0.9.0.0.tgz
+tar -xzvf kafka_2.11-0.9.0.0.tgz
+mv kafka_2.11-0.9.0.0 kafka
+
+(optional) (en sona  ekle)
+nano ~/kafka/config/server.properties 
+delete.topic.enable = true
+
+nohup ~/kafka/bin/kafka-server-start.sh ~/kafka/config/server.properties > ~/kafka/kafka.log 2>&1 &
+
+(üstteki hata verirse yani 1 gb'dan daha az is memory)
+nano kafka-server-start.sh
+ export KAFKA_HEAP_OPTS="-Xmx512M -Xms256M"
+nano zookeeper-server-start.sh
+ export KAFKA_HEAP_OPTS="-Xmx512M -Xms256M"
+

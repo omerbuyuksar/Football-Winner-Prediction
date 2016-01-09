@@ -1,0 +1,16 @@
+
+
+use FOOTBALL_PREDICT
+
+sudo service mongodb stop
+
+2004-2005 e kadar (o yok)
+
+mongoexport --db FOOTBALL_PREDICT --collection matches --csv --fields Div,Date,HomeTeam,AwayTeam,HTR,FTR,HC,AC,HF,AF,HO,AO,HY,AY,HR,AR,HS,AS,HST,AST,HHW,AHW,HBP,ABP,B365H,B365D,B365A,BSH,BSD,BSA,BWH,BWD,BWA,GBH,GBD,GBA,IWH,IWD,IWA,LBH,LBD,LBA,PSH,PSD,PSA,SOH,SOD,SOA,SBH,SBD,SBA,SJH,SJD,SJA,SYH,SYD,SYA,VCH,VCD,VCA,WHH,WHD,WHA,Bb1X2,BbMxH,BbAvH,BbMxD,BbAvD,BbMxA,BbAvA --out matchesout.csv
+
+
+mongoimport --db FOOTBALL_PREDICT --collection basaksehir --type csv --headerline --file basaksehir/tweets.csv
+
+db.runCommand({eval: db.basaksehir.find().forEach(function(doc){doc.created_at = new ISODate(doc.created_at);db.basaksehir.save(doc)})})
+
+db.galatasaray.createIndex({ text: "text" })

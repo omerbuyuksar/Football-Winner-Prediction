@@ -1,0 +1,22 @@
+
+
+
+
+export JAVA_HOME=/usr/lib/jvm/java-7-oracle
+export PATH=$PATH:/usr/java/jdk1.5.0_07/bin/java
+
+export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk-amd64
+
+/hadoop-data/hdfs/namenode
+/hadoop-data/hdfs/datanode
+
+hdfs://hadoop-master:54310
+
+
+52.10.212.174 hadoop-master
+52.32.73.62 hadoop-slave-1
+
+zookeeper 2181
+kafka 9092
+
+
